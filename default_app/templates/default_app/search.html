@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <link rel="stylesheet" href="{% static 'default_app/style.css' %}" type="text/css">
+</head>
+<body>
+    <ul>
+        <li><a href="{% url 'default_app:index' %}">Index</a></li>
+        <li><a href="{% url 'default_app:search' %}">Search</a></li>
+        <li><a href="{% url 'default_app:liked' %}">Liked videos</a></li>
+    </ul>
+    <form action="" method="GET">
+        <input type="text" name="search_query" value="{{ search_query }}">
+        <input type="submit" value="Search">
+    </form>
+    <br>
+    <span>{{ cached_result }}</span>
+    <br>
+    {% for video in videos_list %}
+    <iframe width="860" height="480" src="https://www.youtube.com/embed/{{ video.video_id }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <br>
+    <span>Title: {{ video.title }} (video_id: {{ video.video_id }})</span><br>
+    <span>Description: {{ video.description }}</span><br>
+    <span>Channel: {{ video.channel_title }} (channel_id: {{ video.channel_id }})</span>
+    <form action="{% url 'default_app:liked' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="video_id" value="{{ video.video_id }}">
+        {% if video.liked %}
+        <input type="submit" value="Unlike">
+        {% else %}
+        <input type="submit" value="Like">
+        {% endif %}
+    </form>
+    <form action="{% url 'default_app:liked' %}" method="DELETE">
+
+    </form>
+    <br><br>
+    {% endfor %}
+</body>
+</html>
