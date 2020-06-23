@@ -2,10 +2,10 @@
 
 **This project is done as a practical work under supervision of the Light-IT company.**
 
-Front-end part.
+Front-end part.<br>
 As a front-end part I've done several simple HTML-pages just to test the functionality of my project.
 
-Back-end part.
+Back-end part.<br>
 All parts of technical task were completed and implemented in this project.
 
 **Special info**
